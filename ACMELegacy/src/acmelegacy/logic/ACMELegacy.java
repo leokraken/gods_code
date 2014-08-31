@@ -45,7 +45,7 @@ public class ACMELegacy {
 		PreparedStatement query = con.prepareStatement(INSERT_QUERY);
 		int i = 1;
 		
-		query.setObject(i++, data.getId());
+		query.setLong(i++, data.getId());
 		query.setString(i++, data.getFechaYHora());
 		query.setString(i++, String.valueOf(data.getTipo()));
 		query.setString(i++, data.getCodigoComercio());
