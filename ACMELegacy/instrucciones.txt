@@ -1,0 +1,6 @@
+- Descargar y agregar al build path el driver mySQL para java. Descargar de: http://www.mysql.com/products/connector/
+
+- Ejecutar script Obligatorio1.sql para crear base.
+
+- La clase DbHelper tiene la conexión a la base de datos en el constructor por defecto, se puede cambiar ahi, o pasarle al constructor la conexion. Segun como tengan configurado mySQL.
+--> si tienen mySQL con user/pass root:root y en el puerto estandar no habia que cambiar nada.
