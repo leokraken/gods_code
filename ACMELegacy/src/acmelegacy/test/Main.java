@@ -18,7 +18,7 @@ public class Main {
 			DTTransaction data = new DTTransaction();
 			
 			data.setId(30);
-			data.setFechaYHora("2014-08-29 09:39:31");//"27/05/2014 22:32:01", NO SOPORTADA POR MYSQL
+			data.setFechaYHora("2014-08-29 09:39:31");
 			data.setTipo('C');
 			data.setCodigoComercio("codigo");
 			data.setNombreComercio("poronga");

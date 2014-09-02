@@ -5,12 +5,12 @@ import java.math.BigDecimal;
 public class DTTransaction {
 	
 	private long id;
-	private String fechaYHora;			//Fecha en formato "dd/mm/yyyy hh:mm:ss"
-	private char tipo;					//C (Compra), D (depósito), S (consulta de saldo)
+	private String fechaYHora;			//Fecha en formato "yyyy-mm-dd hh:mm:ss"
+	private char tipo;					//C (compra), D (deposito), S (consulta de saldo)
 	private String codigoComercio;
 	private String nombreComercio;
 	private String numeroTarjeta;
-	private char tipoTarjeta;			//D (débito), C (crédito), P (prepaga)
+	private char tipoTarjeta;			//D (debito), C (credito), P (prepaga)
 	private String codigoMoneda;		//UYU, USD
 	private BigDecimal monto;
 		
