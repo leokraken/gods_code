@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns:int="http://www.springframework.org/schema/integration"
+	xmlns:int-jms="http://www.springframework.org/schema/integration/jms"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:int-stream="http://www.springframework.org/schema/integration/stream"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/integration
+		http://www.springframework.org/schema/integration/spring-integration.xsd
+		http://www.springframework.org/schema/integration/jms
+		http://www.springframework.org/schema/integration/jms/spring-integration-jms.xsd
+		http://www.springframework.org/schema/integration/stream
+		http://www.springframework.org/schema/integration/stream/spring-integration-stream.xsd">
+
+
+	
+	<beans:bean id="connectionFactory" class="org.springframework.jms.connection.CachingConnectionFactory">
+		<beans:property name="targetConnectionFactory">
+			<beans:bean class="org.apache.activemq.ActiveMQConnectionFactory">				
+				<beans:property name="brokerURL" value="tcp://localhost:61616"/>
+			</beans:bean>
+		</beans:property>
+		<beans:property name="sessionCacheSize" value="10"/>
+		<beans:property name="cacheProducers" value="false"/>
+	</beans:bean>
+
+	<beans:bean id="bankQueue" class="org.apache.activemq.command.ActiveMQQueue">
+		<beans:constructor-arg value="bankQueue"/>
+	</beans:bean>	 
+	 
+	<int:annotation-config/>	
+
+	<context:component-scan base-package="middleware.componentes"/>
+			
+	<!-- TEST.queue es el nombre de la cola JMS que usa el banco para mandar los msj -->
+	<int-jms:inbound-channel-adapter id="jmsIn" destination="bankQueue" channel="jmsChannel">
+	    <int:poller fixed-rate="1000"/>
+	</int-jms:inbound-channel-adapter>	
+
+	<!-- TODO: decidir si es un direct channel o un executor channel.
+		Como esta ahora es un executor. La idea es que el executor 
+		no bloquea al que envia el mensaje, comparado con el direct channel (por defecto)
+		El executor tiene varios tipos tambien.. pool, executor, no se que mas.
+	 -->
+	<int:channel id="jmsChannel">
+		<int:dispatcher task-executor="pool"/>
+	</int:channel>
+
+	
+
+</beans:beans>
