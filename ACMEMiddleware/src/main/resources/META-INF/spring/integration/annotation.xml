@@ -41,6 +41,9 @@
 	    <int:poller fixed-rate="1000"/>
 	</int-jms:inbound-channel-adapter>	
 
+	<!-- Definicion de canales. -->
+
+
 	<!-- TODO: decidir si es un direct channel o un executor channel.
 		Como esta ahora es un executor. La idea es que el executor 
 		no bloquea al que envia el mensaje, comparado con el direct channel (por defecto)
@@ -50,6 +53,8 @@
 		<int:dispatcher task-executor="pool"/>
 	</int:channel>
 
-	
+	<int:channel id="recipentListChannel" datatype="middleware.clases.datatypes.TransactionStatus"/>
+
+	<int:publish-subscribe-channel id="invalidMessageChannel"/>
 
 </beans:beans>

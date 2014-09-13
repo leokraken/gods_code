@@ -1,7 +1,15 @@
 package middleware.componentes;
 
+import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Unmarshaller;
+
+import middleware.clases.datatypes.Transaction;
+import middleware.clases.datatypes.TransactionStatus;
 
 import org.springframework.integration.annotation.MessageEndpoint;
 import org.springframework.integration.annotation.Router;
@@ -17,13 +25,26 @@ public class RecipentList {
 	 * @param transaction
 	 * @return
 	 */
-	@Router(inputChannel="jmsChannel")
-	public List<String> resolveTransaction(String transaction) {
-		//TODO: hacer logica...
-		System.out.println(transaction);
+	@Router(inputChannel="recipentListChannel")
+	public List<String> resolveTransaction(TransactionStatus t) {
+		
 		List<String> res = new ArrayList<String>();
-		res.add("errorChannel");	//Mando a error channel por ahora, spring tiene uno por defecto que imprime en log.
+		if(t.isValid()){
+			//segun el tipo de datos que tiene decidir a que canal enviarlo.
+			System.out.println("Recibida: " + t.getTransaction().getId());
+		}
+		else{
+			res.add("invalidMessageChannel"); //mando a invalid.
+		}
+			
+				
+		res.add("invalidMessageChannel");	//Mando todo a invalid por ahora!
+		
+		
+		
 		return res;
 	}
+	
+	
 
 }
