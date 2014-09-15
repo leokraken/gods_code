@@ -56,5 +56,40 @@
 	<int:channel id="recipentListChannel" datatype="middleware.clases.datatypes.TransactionStatus"/>
 
 	<int:publish-subscribe-channel id="invalidMessageChannel"/>
+	
+	
+	
+	
+	<!--  -->
+	
+	<!-- For ws aggregator -->
+	
+	<int:channel id="router-aggregator" datatype="middleware.clases.datatypes.TransactionStatus"/>
+	<int:channel id="aggregator-channel" datatype="middleware.clases.datatypes.Transactions"/>
+	
+	<int-stream:stdout-channel-adapter id="stdout"
+		channel="aggregator-channel" />
+
+	<int:aggregator id="TransactionAggregator"
+		input-channel="router-aggregator" output-channel="aggregator-channel"
+		method="addTransaction" ref="aggregatorsource"
+		release-strategy="aggregatorsource"
+		release-strategy-method="releaseChecker"
+		correlation-strategy="aggregatorsource"
+		correlation-strategy-method="correlate">
+	</int:aggregator>
+
+	<beans:bean id="aggregatorsource" class="middleware.componentes.TransactionAggregator"/>	
+
+	<int:router
+		id="Router"
+		input-channel="recipentListChannel" 
+		method="resolveTransaction">
+		<beans:bean class="middleware.componentes.RecipentList"/>
+	</int:router>
+	
+	
+	
+	
 
 </beans:beans>

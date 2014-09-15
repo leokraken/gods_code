@@ -15,7 +15,7 @@ import org.springframework.integration.annotation.MessageEndpoint;
 import org.springframework.integration.annotation.Router;
 
 
-@MessageEndpoint
+//@MessageEndpoint
 public class RecipentList {	
 	
 	/***
@@ -25,20 +25,21 @@ public class RecipentList {
 	 * @param transaction
 	 * @return
 	 */
-	@Router(inputChannel="recipentListChannel")
+	//@Router(inputChannel="recipentListChannel")
 	public List<String> resolveTransaction(TransactionStatus t) {
 		
 		List<String> res = new ArrayList<String>();
 		if(t.isValid()){
 			//segun el tipo de datos que tiene decidir a que canal enviarlo.
 			System.out.println("Recibida: " + t.getTransaction().getId());
+			res.add("router-aggregator");
 		}
 		else{
 			res.add("invalidMessageChannel"); //mando a invalid.
 		}
 			
 				
-		res.add("invalidMessageChannel");	//Mando todo a invalid por ahora!
+		//res.add("invalidMessageChannel");	//Mando todo a invalid por ahora!
 		
 		
 		
