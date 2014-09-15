@@ -1,17 +1,19 @@
 package middleware.clases.datatypes;
 
-import java.util.ArrayList;
 import java.util.List;
-import javax.xml.bind.annotation.*;
 
-//@XmlRootElement(name = "Transactions")
-//@XmlAccessorType (XmlAccessType.FIELD)
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+
+
+@XmlRootElement(name = "arg0")
+@XmlAccessorType (XmlAccessType.FIELD)
 public class Transactions {
+	List<Transaction> transactionList;
 
+	//@XmlJavaTypeAdapter(TransactionAdapter.class)
 	//@XmlElement(name = "Transaction")
-	private List<Transaction> transactionList;
-
-	
 	public List<Transaction> getTransactionList() {
 		return transactionList;
 	}
@@ -20,14 +22,6 @@ public class Transactions {
 		this.transactionList = transactionList;
 	}
 
-	
-	public Transactions(List<TransactionStatus> transactionList) {
-		super();
-		this.transactionList = new ArrayList<Transaction>(); //<Transaction>();
-		for(TransactionStatus t : transactionList){
-			this.transactionList.add(t.getTransaction());
-		}
-	}
 	
 	@Override
 	public String toString() {		

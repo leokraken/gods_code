@@ -4,10 +4,11 @@ import java.math.BigDecimal;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name="Transaction")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Transaction {
 	
 	private long id;
@@ -21,6 +22,26 @@ public class Transaction {
 	private String codigoMoneda;	//UYU, USD
 	private String tipoDispositivo;	//POS, WEB, ATM
 	private BigDecimal monto;			
+	
+	/*
+	
+	public Transaction(long id, String fecha, String hora, String tipo,
+			String codigoComercio, String nombreComercio, String numeroTarjeta,
+			String tipoTarjeta, String codigoMoneda, String tipoDispositivo,
+			BigDecimal monto) {
+		super();
+		this.id = id;
+		this.fecha = fecha;
+		this.hora = hora;
+		this.tipo = tipo;
+		this.codigoComercio = codigoComercio;
+		this.nombreComercio = nombreComercio;
+		this.numeroTarjeta = numeroTarjeta;
+		this.tipoTarjeta = tipoTarjeta;
+		this.codigoMoneda = codigoMoneda;
+		this.tipoDispositivo = tipoDispositivo;
+		this.monto = monto;
+	}*/
 	
 	public long getId() {
 		return id;

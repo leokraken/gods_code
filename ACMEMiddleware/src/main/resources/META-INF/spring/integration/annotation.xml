@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans:beans xmlns:int="http://www.springframework.org/schema/integration"
+<beans:beans
+	xmlns:int="http://www.springframework.org/schema/integration"
 	xmlns:int-jms="http://www.springframework.org/schema/integration/jms"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:beans="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:int-stream="http://www.springframework.org/schema/integration/stream"
+	xmlns:int-ws="http://www.springframework.org/schema/integration/ws"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
 		http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context
@@ -14,7 +16,9 @@
 		http://www.springframework.org/schema/integration/jms
 		http://www.springframework.org/schema/integration/jms/spring-integration-jms.xsd
 		http://www.springframework.org/schema/integration/stream
-		http://www.springframework.org/schema/integration/stream/spring-integration-stream.xsd">
+		http://www.springframework.org/schema/integration/stream/spring-integration-stream.xsd
+		http://www.springframework.org/schema/integration/ws
+    	http://www.springframework.org/schema/integration/ws/spring-integration-ws.xsd">
 
 
 	
@@ -67,8 +71,7 @@
 	<int:channel id="router-aggregator" datatype="middleware.clases.datatypes.TransactionStatus"/>
 	<int:channel id="aggregator-channel" datatype="middleware.clases.datatypes.Transactions"/>
 	
-	<int-stream:stdout-channel-adapter id="stdout"
-		channel="aggregator-channel" />
+	
 
 	<int:aggregator id="TransactionAggregator"
 		input-channel="router-aggregator" output-channel="aggregator-channel"
@@ -88,8 +91,27 @@
 		<beans:bean class="middleware.componentes.RecipentList"/>
 	</int:router>
 	
+	<!-- <int-ws:outbound-gateway id="ws-outbound"
+    	request-channel="aggregator-channel"
+        uri="http://localhost:8080/ACMETransactions/transactions"/> -->
 	
 	
-	
+ 
+	<int-ws:outbound-gateway id="ws-out"
+		request-channel="aggregator-channel"
+		uri="http://localhost:8080/ACMETransactions/transactions"
+		reply-channel="ws-channel-out" marshaller="Marshaller"
+		unmarshaller="Marshaller">
+	</int-ws:outbound-gateway>
 
+	<beans:bean id="Marshaller"
+		class="middleware.componentes.MarshallerWS" />
+
+	<int:channel id="ws-channel-out"></int:channel>
+	<int-stream:stdout-channel-adapter id="std-ws"
+		channel="ws-channel-out" />
+
+	<int:logging-channel-adapter id="log" channel="aggregator-channel"
+		level="DEBUG">
+	</int:logging-channel-adapter>
 </beans:beans>
