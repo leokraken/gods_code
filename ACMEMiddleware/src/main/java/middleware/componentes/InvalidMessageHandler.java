@@ -1,5 +1,6 @@
 package middleware.componentes;
 
+import middleware.clases.datatypes.Result;
 import middleware.clases.datatypes.TransactionStatus;
 
 import org.springframework.integration.annotation.MessageEndpoint;
@@ -23,6 +24,12 @@ public class InvalidMessageHandler {
 	@ServiceActivator(inputChannel="invalidMessageChannel")
 	public void LogInvalid(TransactionStatus t){
 		System.out.println("Mensaje invalido: " + t.getMessage());		
+	}
+	
+	public void LogInvalidMessageWS(Result res){
+		if(!res.isOk()){
+			System.out.println(res.getMessage());
+		}
 	}
 
 }

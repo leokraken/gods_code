@@ -113,4 +113,13 @@
 	<int:logging-channel-adapter id="log-ws" channel="ws-channel-out"
 		level="TRACE">
 	</int:logging-channel-adapter>
+	
+	<int:service-activator input-channel="ws-channel-out"
+		ref="ws-log-error"
+		method="LogInvalidMessageWS">
+	</int:service-activator>
+	
+	<beans:bean id="ws-log-error" class="middleware.componentes.InvalidMessageHandler"/>	
+	
+	
 </beans:beans>

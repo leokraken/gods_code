@@ -1,6 +1,7 @@
 package middleware.componentes;
 
 import java.io.IOException;
+import java.io.StringReader;
 import java.io.StringWriter;
 
 import javax.xml.bind.JAXBContext;
@@ -9,6 +10,10 @@ import javax.xml.transform.Result;
 import javax.xml.transform.Source;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
+
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import javax.xml.transform.dom.DOMSource;
 
 import middleware.clases.datatypes.Transactions;
 
@@ -61,11 +66,26 @@ public boolean supports(Class<?> arg0) {
 	return false;
 }
 
-public Object unmarshal(Source arg0) throws IOException,
-			XmlMappingException {
-		// TODO Auto-generated method stub
-		System.out.println("RESPUESTA!");
-		return new String("HOLA");
+public Object unmarshal(Source src) throws IOException,
+		XmlMappingException {
+		boolean isOk = false;
+		String mensaje = "";
+		middleware.clases.datatypes.Result Res = new middleware.clases.datatypes.Result();
+		final NodeList nodeList = ((DOMSource)src).getNode().getChildNodes();
+		if(nodeList.getLength() > 1){
+			for(int i=0; i<nodeList.getLength(); i++){
+				Node iter = nodeList.item(i);
+				if(iter.getLocalName().equals("isOk")){
+					isOk = Boolean.valueOf(iter.getTextContent());
+				}else if(iter.getLocalName().equals("message")){
+					mensaje = iter.getTextContent();
+				}
+			}
+		}
+		Res.setMessage(mensaje);
+		Res.setOk(isOk);
+		return Res;
+
 	}
 
 }
