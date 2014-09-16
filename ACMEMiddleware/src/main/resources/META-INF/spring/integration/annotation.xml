@@ -78,8 +78,8 @@
 		method="addTransaction" ref="aggregatorsource"
 		release-strategy="aggregatorsource"
 		release-strategy-method="releaseChecker"
-		correlation-strategy="aggregatorsource"
-		correlation-strategy-method="correlate">
+		expire-groups-upon-completion="true"
+		correlation-strategy-expression="1">
 	</int:aggregator>
 
 	<beans:bean id="aggregatorsource" class="middleware.componentes.TransactionAggregator"/>	
@@ -108,10 +108,9 @@
 		class="middleware.componentes.MarshallerWS" />
 
 	<int:channel id="ws-channel-out"></int:channel>
-	<int-stream:stdout-channel-adapter id="std-ws"
-		channel="ws-channel-out" />
+	
 
-	<int:logging-channel-adapter id="log" channel="aggregator-channel"
-		level="DEBUG">
+	<int:logging-channel-adapter id="log-ws" channel="ws-channel-out"
+		level="TRACE">
 	</int:logging-channel-adapter>
 </beans:beans>

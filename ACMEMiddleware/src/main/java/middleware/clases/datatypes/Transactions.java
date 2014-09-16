@@ -7,7 +7,9 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 
 
-@XmlRootElement(name = "arg0")
+
+
+@XmlRootElement(name = "Transactions", namespace="ACME")
 @XmlAccessorType (XmlAccessType.FIELD)
 public class Transactions {
 	List<Transaction> transactionList;

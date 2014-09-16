@@ -39,15 +39,12 @@ public void marshal(Object obj, Result res) throws IOException,
 			
 			//mar.setProperty(javax.xml.bind.Marshaller.JAXB_FORMATTED_OUTPUT,true);
 			mar.setProperty(javax.xml.bind.Marshaller.JAXB_FRAGMENT, true);
-			//mar.marshal(t, res);
 			mar.marshal(t, sw);
 			String body = sw.toString();
-			String xmlString = "<ns2:ReceiveTransactions xmlns:ns2=\"ACME\"> "+body
-					 + "</ns2:ReceiveTransactions>";
-			System.out.println(xmlString);
-			//"</arg0>"+ "<arg0>"
+			//String xmlString = "<ns2:ReceiveTransactions xmlns:ns2=\"ACME\"> " + body + "</ns2:ReceiveTransactions>";
+			//System.out.println(xmlString);
 			Transformer transform = TransformerFactory.newInstance().newTransformer();
-            transform.transform(new StringSource(xmlString), res);
+            transform.transform(new StringSource(body), res);
 			
 		} catch (JAXBException e) {
 			// TODO Auto-generated catch block

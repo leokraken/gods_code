@@ -8,6 +8,7 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 
+import middleware.clases.datatypes.Constants;
 import middleware.clases.datatypes.Transaction;
 import middleware.clases.datatypes.TransactionStatus;
 
@@ -30,9 +31,14 @@ public class RecipentList {
 		
 		List<String> res = new ArrayList<String>();
 		if(t.isValid()){
-			//segun el tipo de datos que tiene decidir a que canal enviarlo.
-			System.out.println("Recibida: " + t.getTransaction().getId());
-			res.add("router-aggregator");
+			System.out.println("Recibida: " + t.getTransaction().getId()+ t.getTransaction().getTipoDispositivo());	
+			
+			//to WS
+			if(t.getTransaction().getTipoDispositivo().equals("POS")){
+				res.add("router-aggregator");
+			}
+			//Agregar canal para BD
+			res.add("invalidMessageChannel");
 		}
 		else{
 			res.add("invalidMessageChannel"); //mando a invalid.

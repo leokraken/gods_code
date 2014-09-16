@@ -13,5 +13,6 @@ public class Constants {
 	public static String[] cardTypes = new String[]{"debito", "credito", "prepaga"};
 	public static String[] currencyTypes = new String[] {"UY","USD"};
 	public static String[] deviceTypes = new String[] {"POS","WEB","ATM"};
+	public static int release = 10;
 	
 }
