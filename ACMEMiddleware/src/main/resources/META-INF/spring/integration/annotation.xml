@@ -7,9 +7,9 @@
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:int-stream="http://www.springframework.org/schema/integration/stream"
 	xmlns:int-ws="http://www.springframework.org/schema/integration/ws"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans
 	xmlns:int-jdbc="http://www.springframework.org/schema/integration/jdbc"
 	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
 		http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context
 		http://www.springframework.org/schema/context/spring-context.xsd
@@ -125,14 +125,15 @@
 	
 	<beans:bean id="ws-log-error" class="middleware.componentes.InvalidMessageHandler"/>	
 	
-	<int:channel id="pruebaJDBC-channel"/>
+	<int:channel id="pruebaJDBC-channel" datatype="middleware.clases.datatypes.TransactionStatus"/>
 	
 	<int-jdbc:outbound-channel-adapter
-    query="insert into middleware.transactions (id) values (10)"
+    query="insert into middleware.transactions (commerce_name) values (:payload[message])"
     data-source="dataSource"
     channel="pruebaJDBC-channel"/>
     
     <beans:bean id="dataSource" class="middleware.componentes.MDataSource">
 	</beans:bean>
+	
 	
 </beans:beans>
