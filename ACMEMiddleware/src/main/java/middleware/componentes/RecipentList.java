@@ -36,7 +36,8 @@ public class RecipentList {
 			//to WS
 			if(t.getTransaction().getTipoDispositivo().equals("POS")){
 				res.add("router-aggregator");
-			}
+				res.add("pruebaJDBC-channel");
+				}
 			//Agregar canal para BD
 			res.add("invalidMessageChannel");
 		}
