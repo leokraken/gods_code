@@ -125,15 +125,21 @@
 	
 	<beans:bean id="ws-log-error" class="middleware.componentes.InvalidMessageHandler"/>	
 	
-	<int:channel id="pruebaJDBC-channel" datatype="middleware.clases.datatypes.TransactionStatus"/>
+	<int:channel id="pruebaJDBC-channel" datatype="middleware.clases.datatypes.Transaction"/>
+	
+	<int:channel id="transformJDBC-channel" datatype="middleware.clases.datatypes.TransactionStatus"/>
+	
+	<int:transformer id="transformer" ref="transformerBean" output-channel="pruebaJDBC-channel" 
+	input-channel="transformJDBC-channel" method="transform"></int:transformer>
+	
+	<beans:bean id="transformerBean" class="middleware.componentes.Transformador"></beans:bean>
 	
 	<int-jdbc:outbound-channel-adapter
-    query="insert into middleware.transactions (commerce_name) values (:payload[message])"
+    query="insert into middleware.transactions (commerce_name) values (:nombreComercio.toString())"
     data-source="dataSource"
     channel="pruebaJDBC-channel"/>
     
     <beans:bean id="dataSource" class="middleware.componentes.MDataSource">
 	</beans:bean>
-	
 	
 </beans:beans>
