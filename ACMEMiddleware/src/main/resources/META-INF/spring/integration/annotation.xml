@@ -135,7 +135,10 @@
 	<beans:bean id="transformerBean" class="middleware.componentes.Transformador"></beans:bean>
 	
 	<int-jdbc:outbound-channel-adapter
-    query="insert into middleware.transactions (commerce_name) values (:nombreComercio.toString())"
+    query="insert into middleware.transactions (id,datetime,transaction_type,
+    commerce_code,commerce_name,card_number,card_type,currency_code,amount) 
+    values (:payload.Id,Now(),'C',:payload.CodigoComercio,:payload.NombreComercio,
+    :payload.NumeroTarjeta,'D','UYU',:payload.Monto)"
     data-source="dataSource"
     channel="pruebaJDBC-channel"/>
     
