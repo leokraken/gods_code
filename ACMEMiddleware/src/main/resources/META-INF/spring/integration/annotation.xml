@@ -125,7 +125,7 @@
 	
 	<beans:bean id="ws-log-error" class="middleware.componentes.InvalidMessageHandler"/>	
 	
-	<int:channel id="pruebaJDBC-channel" datatype="middleware.clases.datatypes.Transaction"/>
+	<int:channel id="pruebaJDBC-channel" datatype="middleware.clases.datatypes.TransactionBD"/>
 	
 	<int:channel id="transformJDBC-channel" datatype="middleware.clases.datatypes.TransactionStatus"/>
 	
@@ -137,8 +137,8 @@
 	<int-jdbc:outbound-channel-adapter
     query="insert into middleware.transactions (id,datetime,transaction_type,
     commerce_code,commerce_name,card_number,card_type,currency_code,amount) 
-    values (:payload.Id,Now(),'C',:payload.CodigoComercio,:payload.NombreComercio,
-    :payload.NumeroTarjeta,'D','UYU',:payload.Monto)"
+    values (:payload.id,:payload.fecha,'D',:payload.codigoComercio,:payload.nombreComercio,
+    :payload.numeroTarjeta,:payload.tipoTarjeta,:payload.codigoMoneda,:payload.Monto)"
     data-source="dataSource"
     channel="pruebaJDBC-channel"/>
     
