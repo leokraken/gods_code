@@ -137,7 +137,7 @@
 	<int-jdbc:outbound-channel-adapter
     query="insert into middleware.transactions (id,datetime,transaction_type,
     commerce_code,commerce_name,card_number,card_type,currency_code,amount) 
-    values (:payload.Id,:payload.Fecha,'D',:payload.CodigoComercio,:payload.NombreComercio,
+    values (:payload.Id,:payload.Fecha,payload.Transaccion,:payload.CodigoComercio,:payload.NombreComercio,
     :payload.NumeroTarjeta,:payload.TipoTarjeta,:payload.CodigoMoneda,:payload.Monto)"
     data-source="dataSource"
     channel="pruebaJDBC-channel"/>
