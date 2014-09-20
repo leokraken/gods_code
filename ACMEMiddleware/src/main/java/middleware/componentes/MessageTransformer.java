@@ -11,13 +11,9 @@ import javax.xml.bind.Unmarshaller;
 import middleware.clases.datatypes.Transaction;
 import middleware.clases.datatypes.TransactionStatus;
 
-import org.springframework.integration.annotation.MessageEndpoint;
-import org.springframework.integration.annotation.Transformer;
 
-@MessageEndpoint
 public class MessageTransformer {
 
-	@Transformer(inputChannel="jmsChannel",outputChannel="recipentListChannel")
 	public TransactionStatus transformAndValidate(String xml){
 		
 		Transaction t = null;
@@ -34,16 +30,22 @@ public class MessageTransformer {
 			res.setTransaction(null);
 		}
 		
-		//Hacer otras validaciones, por ej de tipo de datos etc...
 		
-		if(error != null){
+		if(error != null){	
 			res.setMessage(error);
 			res.setValid(false);
 		}
 		else{
-			
-			res.setMessage("Ok");
-			res.setValid(true);
+			//Validar tipos de datos.
+			try{
+				t.ValidateTransaction();
+				res.setMessage("Ok");
+				res.setValid(true);
+			}
+			catch(Exception e){
+				res.setMessage(e.getMessage());
+				res.setValid(false);
+			}			
 			
 		}	
 		

@@ -1,22 +1,13 @@
 package middleware.componentes;
 
-import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Unmarshaller;
-
 import middleware.clases.datatypes.Constants;
-import middleware.clases.datatypes.Transaction;
 import middleware.clases.datatypes.TransactionStatus;
 
-import org.springframework.integration.annotation.MessageEndpoint;
-import org.springframework.integration.annotation.Router;
 
 
-//@MessageEndpoint
 public class RecipentList {	
 	
 	/***
@@ -26,29 +17,23 @@ public class RecipentList {
 	 * @param transaction
 	 * @return
 	 */
-	//@Router(inputChannel="recipentListChannel")
 	public List<String> resolveTransaction(TransactionStatus t) {
 		
 		List<String> res = new ArrayList<String>();
 		if(t.isValid()){
-			System.out.println("Recibida: " + t.getTransaction().getId()+ t.getTransaction().getTipoDispositivo());	
+			
 			
 			//to WS
-			if(t.getTransaction().getTipoDispositivo().equals("POS")){
+			if(t.getTransaction().getTipoDispositivo().equals(Constants.webServiceDeviceType)){
 				res.add("router-aggregator");
-				res.add("transformJDBC-channel");
-				}
-			//Agregar canal para BD
-			res.add("invalidMessageChannel");
+				
+			}
+			res.add("transformJDBC-channel");
+
 		}
 		else{
 			res.add("invalidMessageChannel"); //mando a invalid.
 		}
-			
-				
-		//res.add("invalidMessageChannel");	//Mando todo a invalid por ahora!
-		
-		
 		
 		return res;
 	}

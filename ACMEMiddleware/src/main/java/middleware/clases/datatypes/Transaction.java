@@ -1,11 +1,13 @@
 package middleware.clases.datatypes;
 
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
+
 
 @XmlRootElement(name="Transaction")
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -23,25 +25,6 @@ public class Transaction {
 	private String tipoDispositivo;	//POS, WEB, ATM
 	private BigDecimal monto;			
 	
-	/*
-	
-	public Transaction(long id, String fecha, String hora, String tipo,
-			String codigoComercio, String nombreComercio, String numeroTarjeta,
-			String tipoTarjeta, String codigoMoneda, String tipoDispositivo,
-			BigDecimal monto) {
-		super();
-		this.id = id;
-		this.fecha = fecha;
-		this.hora = hora;
-		this.tipo = tipo;
-		this.codigoComercio = codigoComercio;
-		this.nombreComercio = nombreComercio;
-		this.numeroTarjeta = numeroTarjeta;
-		this.tipoTarjeta = tipoTarjeta;
-		this.codigoMoneda = codigoMoneda;
-		this.tipoDispositivo = tipoDispositivo;
-		this.monto = monto;
-	}*/
 	
 	public long getId() {
 		return id;
@@ -110,5 +93,93 @@ public class Transaction {
 		this.monto = monto;
 	}
 	
+	private String getErrorMessage(long id, String msg){
+		return String.format("Transaccion [ %d ] invalida: %s", id,msg);
+	}
+	
+	/***
+	 * Valida transaccion. Tira excepcion si algun campo es invalido.
+	 * @throws Exception
+	 */
+	public void ValidateTransaction() throws Exception{
+				
+
+		//validar fecha
+		try{
+			SimpleDateFormat parser = new SimpleDateFormat(Constants.dateFormat);
+			parser.parse(this.getFecha());
+		}
+		catch(Exception e){
+			throw new Exception(this.getErrorMessage(this.getId(), "Fecha invalida."));
+		}
+		
+		//validar hora
+		try{
+			SimpleDateFormat parser = new SimpleDateFormat(Constants.timeFormat);
+			parser.parse(this.getHora());
+		}
+		catch(Exception e){
+			throw new Exception(this.getErrorMessage(this.getId(), "Hora invalida."));
+			
+		}
+		
+		//validar tipo de transaccion
+		boolean validTransactionType = false;
+		if(this.getTipo() != null){
+			for(String type:Constants.transactionTypes){
+				if(this.getTipo().equals(type)){
+					validTransactionType = true;
+					break;
+				}
+			}
+		}		
+		if(!validTransactionType){
+			throw new Exception(this.getErrorMessage(this.getId(), "Tipo de transaccion invalido."));			
+		}
+		
+		
+		//validar tipo de tarjeta
+		boolean validCardType = false;
+		if(this.getTipoTarjeta() != null){
+			for(String type:Constants.cardTypes){
+				if(this.getTipoTarjeta().equals(type)){
+					validCardType = true;
+					break;
+				}
+			}
+		}		
+		if(!validCardType){
+			throw new Exception(this.getErrorMessage(this.getId(), "Tipo de tarjeta invalido."));		
+		}
+		
+		//Validar moneda
+		boolean validCurrencyType = false;
+		if(this.getCodigoMoneda() != null){
+			for(String type:Constants.currencyTypes){
+				if(this.getCodigoMoneda().equals(type)){
+					validCurrencyType = true;
+					break;
+				}
+			}
+		}		
+		if(!validCurrencyType){
+			throw new Exception(this.getErrorMessage(this.getId(), "Tipo de moneda invalido."));			
+		}
+		
+		//validar tipo dispositivo.		
+		boolean validDevice = false;
+		if(this.getTipoDispositivo() != null){
+			for(String type:Constants.deviceTypes){
+				if(this.getTipoDispositivo().equals(type)){
+					validDevice = true;
+					break;
+				}
+			}
+		}		
+		if(!validDevice){
+			throw new Exception(this.getErrorMessage(this.getId(), "Tipo de dispositivo invalido."));			
+		}
+		
+	}
 
 }

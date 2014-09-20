@@ -8,14 +8,9 @@ import middleware.clases.datatypes.Transaction;
 import middleware.clases.datatypes.TransactionStatus;
 import middleware.clases.datatypes.Transactions;
 
-import org.springframework.integration.annotation.Aggregator;
-import org.springframework.integration.annotation.ReleaseStrategy;
-import org.springframework.stereotype.Component;
 
-//@Component
 public class TransactionAggregator {
 	
-	//@Aggregator(inputChannel="router-aggregator", outputChannel="aggregator-channel")
 	public Transactions addTransaction(List<TransactionStatus> listTransactions){
 		Transactions tr = new Transactions();
 		List<Transaction> list= new ArrayList<Transaction>();
@@ -26,9 +21,8 @@ public class TransactionAggregator {
 		return tr;
 	}
 	
-	//@ReleaseStrategy
 	public boolean releaseChecker(List<TransactionStatus> listTransactions){
-		System.out.println("LPM!"+listTransactions.size());
+		System.out.println("Trans agregator: "+listTransactions.size());
 		return listTransactions.size() == Constants.release;
 	}
 	
