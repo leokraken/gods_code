@@ -20,7 +20,13 @@ public class MessageHandler {
 	}
 	
 	public void LogError(ErrorMessage e){
-		System.out.println("Excepcion: " + e.getPayload().getMessage());		
+		if (e.getPayload().getCause() != null){
+			System.out.println("Excepcion: " + e.getPayload().getCause());
+		}
+		else{
+			System.out.println("Excepcion: " + e.getPayload().getMessage());
+		}
+				
 	}
 		
 	public void LogInvalidMessageWS(Result res){

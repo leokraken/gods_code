@@ -9,6 +9,7 @@
 	xmlns:int-ws="http://www.springframework.org/schema/integration/ws"
 	xmlns:int-jdbc="http://www.springframework.org/schema/integration/jdbc"
 	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xmlns:task="http://www.springframework.org/schema/task"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
 		http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context
@@ -22,7 +23,9 @@
 		http://www.springframework.org/schema/integration/ws
     	http://www.springframework.org/schema/integration/ws/spring-integration-ws.xsd
     	http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
-    	http://www.springframework.org/schema/integration/jdbc http://www.springframework.org/schema/integration/jdbc/spring-integration-jdbc.xsd">
+    	http://www.springframework.org/schema/integration/jdbc http://www.springframework.org/schema/integration/jdbc/spring-integration-jdbc.xsd
+    	http://www.springframework.org/schema/task
+		http://www.springframework.org/schema/task/spring-task.xsd">
 
 
 
@@ -52,6 +55,9 @@
 	<beans:bean id="messageHandlerBean" class="middleware.componentes.MessageHandler"/>	
 	<beans:bean id="recipentListBean" class="middleware.componentes.RecipentList"/>
 	
+	<task:executor id="taskPoolJms" pool-size="25" rejection-policy="CALLER_RUNS"/>
+	<task:executor id="taskPoolWs" pool-size="25" rejection-policy="CALLER_RUNS"/>
+	<task:executor id="taskPoolDb" pool-size="25" rejection-policy="CALLER_RUNS"/>
 		
 	<!-- Sprint integration. -->
 		 
@@ -61,12 +67,12 @@
 			
 	<!-- Canal de JMS channel adapter, a message transformer -->
 	<int:channel id="jmsChannel">
-		<int:dispatcher/>
+		<int:dispatcher task-executor="taskPoolJms"/>
 	</int:channel>
 			
 	<!-- channel adapter para obtener mensajes de la cola JMS. Polling consumer. -->
 	<int-jms:inbound-channel-adapter id="jmsIn" destination="bankQueue" channel="jmsChannel">
-	    <int:poller fixed-rate="200"/>
+	    <int:poller fixed-rate="100"/>
 	</int-jms:inbound-channel-adapter>	
 	
 
@@ -104,7 +110,9 @@
 	
 	
 	<!-- canal de recipent list a agregator de ws-->	
-	<int:channel id="router-aggregator" datatype="middleware.clases.datatypes.TransactionStatus"/>
+	<int:channel id="router-aggregator" datatype="middleware.clases.datatypes.TransactionStatus">
+		<int:dispatcher task-executor="taskPoolWs"/>
+	</int:channel>
 	
 	<!-- Canal de aggregator a gateway de web service -->
 	<int:channel id="aggregator-channel" datatype="middleware.clases.datatypes.Transactions"/>
@@ -142,7 +150,10 @@
 	
 		
 	<!-- Channel que conecta recipent list con transformer de base de datos -->
-	<int:channel id="transformJDBC-channel" datatype="middleware.clases.datatypes.TransactionStatus"/>
+	<int:channel id="transformJDBC-channel" datatype="middleware.clases.datatypes.TransactionStatus">
+		<int:dispatcher task-executor="taskPoolDb"/>
+	</int:channel>
+	
 	
 	<!-- Channel que conecta transformer de base de datos con channel adapter de base de datos. -->
 	<int:channel id="pruebaJDBC-channel" datatype="middleware.clases.datatypes.TransactionBD"/>
