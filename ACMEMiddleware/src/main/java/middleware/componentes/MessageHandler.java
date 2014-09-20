@@ -1,8 +1,9 @@
 package middleware.componentes;
 
+import org.springframework.messaging.support.ErrorMessage;
+
 import middleware.clases.datatypes.Result;
 import middleware.clases.datatypes.TransactionStatus;
-import org.apache.log4j.Logger;
 
 /***
  * Clase de ejemplo para recibir y loguear mensajes invalidos.
@@ -16,6 +17,10 @@ public class MessageHandler {
 		
 	public void LogInvalid(TransactionStatus t){
 		System.out.println("Mensaje invalido recibido por middleware: " + t.getMessage());		
+	}
+	
+	public void LogError(ErrorMessage e){
+		System.out.println("Excepcion: " + e.getPayload().getMessage());		
 	}
 		
 	public void LogInvalidMessageWS(Result res){

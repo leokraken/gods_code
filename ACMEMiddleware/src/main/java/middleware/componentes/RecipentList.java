@@ -16,8 +16,9 @@ public class RecipentList {
 	 * Segun el contenido decide a que canal enviar el mensaje.
 	 * @param transaction
 	 * @return
+	 * @throws Exception 
 	 */
-	public List<String> resolveTransaction(TransactionStatus t) {
+	public List<String> resolveTransaction(TransactionStatus t){
 		
 		List<String> res = new ArrayList<String>();
 		if(t.isValid()){

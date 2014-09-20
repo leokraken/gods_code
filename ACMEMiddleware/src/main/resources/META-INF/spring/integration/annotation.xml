@@ -59,23 +59,30 @@
 
 	<context:component-scan base-package="middleware.componentes"/>
 			
+	<!-- Canal de JMS channel adapter, a message transformer -->
+	<int:channel id="jmsChannel">
+		<int:dispatcher/>
+	</int:channel>
+			
 	<!-- channel adapter para obtener mensajes de la cola JMS. Polling consumer. -->
 	<int-jms:inbound-channel-adapter id="jmsIn" destination="bankQueue" channel="jmsChannel">
 	    <int:poller fixed-rate="200"/>
 	</int-jms:inbound-channel-adapter>	
-
-		
-	<!-- Canal de JMS channel adapter, a message transformer -->
-	<int:channel id="jmsChannel">
-	</int:channel>
+	
 
 	<!-- Invalid message channel -->
-	<int:publish-subscribe-channel id="invalidMessageChannel" datatype="middleware.clases.datatypes.TransactionStatus"/>
+	<int:publish-subscribe-channel id="invalidMessageChannel" datatype="middleware.clases.datatypes.TransactionStatus"/>	
 		
 	<!-- Service activator que recibe msgs invalidos y hace algo, para demostrar mas que nada. -->
 	<int:service-activator input-channel="invalidMessageChannel"
 		ref="messageHandlerBean"
 		method="LogInvalid">
+	</int:service-activator>
+	
+	<!-- Service activator que escucha del channel de excepciones de spring. -->
+	<int:service-activator input-channel="errorChannel"
+		ref="messageHandlerBean"
+		method="LogError">
 	</int:service-activator>
 
 	<!-- Message transformer, pasa de datos recibidos de la cola MQ a objetos de transacciones
