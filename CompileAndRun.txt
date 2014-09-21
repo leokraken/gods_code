@@ -1,7 +1,17 @@
 Instrucciones para compilar y ejecutar el middleware:
 Situarse en el directorio base del Middleware, junto al archivo POM.xml.
-Vía cmd o interprete de comandos deseado ejecutar:
+Vía cmd o interprete de comandos deseado::compilar+ejecutar:
 mvn package exec:java
+
+Para generar el Jar con todas sus dependencias:
+mvn package compile
+
+Para ejecutar:
+java -jar ACMEMiddleware-0.0.1-SNAPSHOT-jar-with-dependencies.jar
+
+O sea dos métodos brindados, el segundo brinda portabilidad compilando la aplicación con todas las librerías requeridas.
+El primero genera un jar sin las dependecias y utiliza maven para incluirlas.
+Se prefiere la segunda.
 
 Notas:
 Se utiliza maven para descargar las fuentes utilizadas, con el comando previamente mencionado se compila en un jar, y se ejecuta utilizando el plugin citado en el POM.xml, en el label <build>.
