@@ -90,3 +90,10 @@ Caused by: java.net.ConnectException: Connection refused: connect
 2014-09-21 17:34:34 ERROR - Mensaje invalido recibido por middleware : Transaccion [ 43 ] invalida: Fecha invalida.
 2014-09-21 17:48:18 ERROR - Mensaje invalido recibido por middleware : Transaccion [ 59 ] invalida: Hora invalida.
 2014-09-21 17:48:18 ERROR - Mensaje invalido recibido por middleware : Transaccion [ 0 ] invalida: Tipo de dispositivo invalido.
+2014-09-21 18:31:05 ERROR - Mensaje invalido recibido por middleware : Transaccion [ 25 ] invalida: Tipo de transaccion invalido.
+2014-09-21 18:50:27 ERROR - Mensaje invalido recibido por middleware : Transaccion [ 47 ] invalida: Hora invalida.
+2014-09-21 18:50:28 ERROR - Mensaje invalido recibido por middleware : Transaccion [ 79 ] invalida: Fecha invalida.
+2014-09-21 18:50:28 ERROR - Mensaje invalido recibido por middleware : Transaccion [ 73 ] invalida: Hora invalida.
+2014-09-21 18:50:28 ERROR - Mensaje invalido recibido por middleware : Transaccion [ 44 ] invalida: Hora invalida.
+2014-09-21 18:50:28 ERROR - Mensaje invalido recibido por middleware : Transaccion [ 57 ] invalida: Tipo de moneda invalido.
+2014-09-21 18:50:28 ERROR - Mensaje invalido recibido por middleware : Transaccion [ 61 ] invalida: Tipo de transaccion invalido.
