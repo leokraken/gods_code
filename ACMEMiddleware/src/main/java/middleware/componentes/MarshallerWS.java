@@ -52,11 +52,9 @@ public void marshal(Object obj, Result res) throws IOException,
             transform.transform(new StringSource(body), res);
 			
 		} catch (JAXBException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new IOException("Error al parsear objeto a xml",e);
 		} catch (TransformerException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new IOException("Error al parsear objeto a xml",e);
 		}
 
 		}
