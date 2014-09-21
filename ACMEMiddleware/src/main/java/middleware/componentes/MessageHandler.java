@@ -19,7 +19,7 @@ public class MessageHandler {
 	final static Logger logger = Logger.getLogger(MessageHandler.class.getName());
 	
 	public void LogInvalid(TransactionStatus t){
-		logger.error("Mensaje invalido recibido por middleware: " + t.getMessage());
+		logger.error("Mensaje invalido recibido por middleware : " + t.getMessage());
 		//System.out.println("Mensaje invalido recibido por middleware: " + t.getMessage());		
 	}
 	
