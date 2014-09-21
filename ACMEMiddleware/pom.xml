@@ -67,6 +67,7 @@
 	
 	<build>
 	<plugins>
+	
 		<plugin>
         	<groupId>org.codehaus.mojo</groupId>
         	<artifactId>exec-maven-plugin</artifactId>
@@ -75,7 +76,44 @@
           		<mainClass>middleware.clases.Main</mainClass>
         	</configuration>
       	</plugin>
+      	
+      	<plugin>
+		  <groupId>org.apache.maven.plugins</groupId>
+		  <artifactId>maven-jar-plugin</artifactId>
+		  <version>2.4</version>
+		  <configuration>
+			<archive>
+				<manifest>
+					<mainClass>middleware.clases.Main</mainClass>
+				</manifest>
+			</archive>
+		  </configuration>
+ 		</plugin>
+      	
+      	<plugin>
+		    <artifactId>maven-assembly-plugin</artifactId>
+		    <executions>
+		      <execution>
+		        <phase>package</phase>
+		        <goals>
+		          <goal>single</goal>
+		        </goals>
+		      </execution>
+		    </executions>
+		    <configuration>
+		    <archive>
+		   		<manifest>
+					<mainClass>middleware.clases.Main</mainClass>
+				</manifest>
+		    </archive>
+		      <descriptorRefs>
+		        <descriptorRef>jar-with-dependencies</descriptorRef>
+		      </descriptorRefs>
+		    </configuration>
+ 		</plugin>
+      	
 	</plugins>
 	</build>
+	
 	
 </project>
