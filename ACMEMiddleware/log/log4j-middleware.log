@@ -97,3 +97,16 @@ Caused by: java.net.ConnectException: Connection refused: connect
 2014-09-21 18:50:28 ERROR - Mensaje invalido recibido por middleware : Transaccion [ 44 ] invalida: Hora invalida.
 2014-09-21 18:50:28 ERROR - Mensaje invalido recibido por middleware : Transaccion [ 57 ] invalida: Tipo de moneda invalido.
 2014-09-21 18:50:28 ERROR - Mensaje invalido recibido por middleware : Transaccion [ 61 ] invalida: Tipo de transaccion invalido.
+2014-09-21 20:41:15 ERROR - Mensaje invalido recibido por middleware : Transaccion [ 59 ] invalida: Hora invalida.
+2014-09-21 20:41:15 ERROR - Mensaje invalido recibido por middleware : Transaccion [ 18 ] invalida: Tipo de transaccion invalido.
+2014-09-21 20:41:15 ERROR - Mensaje invalido recibido por middleware : Transaccion [ 1 ] invalida: Hora invalida.
+2014-09-21 20:41:15 ERROR - Mensaje invalido recibido por middleware : Transaccion [ 53 ] invalida: Tipo de transaccion invalido.
+2014-09-21 22:07:27 ERROR - Mensaje invalido recibido por middleware : Transaccion [ 79 ] invalida: Fecha invalida.
+2014-09-21 22:24:37 ERROR - Mensaje invalido recibido por middleware : Transaccion [ 57 ] invalida: Tipo de moneda invalido.
+2014-09-21 22:24:37 ERROR - Mensaje invalido recibido por middleware : Transaccion [ 15 ] invalida: Tipo de transaccion invalido.
+2014-09-21 22:24:37 ERROR - Mensaje invalido recibido por middleware : Transaccion [ 83 ] invalida: Tipo de tarjeta invalido.
+2014-09-21 22:24:37 ERROR - Mensaje invalido recibido por middleware : Transaccion [ 48 ] invalida: Tipo de transaccion invalido.
+2014-09-21 22:25:44 ERROR - Mensaje invalido recibido por middleware : Transaccion [ 18 ] invalida: Tipo de dispositivo invalido.
+2014-09-21 22:25:44 ERROR - Mensaje invalido recibido por middleware : Transaccion [ 64 ] invalida: Hora invalida.
+2014-09-21 22:25:44 ERROR - Mensaje invalido recibido por middleware : Transaccion [ 39 ] invalida: Fecha invalida.
+2014-09-21 22:25:45 ERROR - Mensaje invalido recibido por middleware : Transaccion [ 1 ] invalida: Hora invalida.

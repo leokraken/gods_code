@@ -33,7 +33,7 @@ public class MarshallerWS implements Marshaller, Unmarshaller {
 public void marshal(Object obj, Result res) throws IOException,
 		XmlMappingException {
 	// TODO Auto-generated method stub
-	System.out.println("MARSHALLER");
+	//System.out.println("MARSHALLER");
 		Transactions t = (Transactions)obj;
 		@SuppressWarnings("restriction")
 		JAXBContext context;

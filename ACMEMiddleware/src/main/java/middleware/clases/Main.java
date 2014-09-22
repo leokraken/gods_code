@@ -14,7 +14,7 @@ public class Main {
 		System.out.println("Iniciando middleware...");
 		
 		AbstractApplicationContext context =
-				new ClassPathXmlApplicationContext("/META-INF/spring/integration/annotation.xml", Main.class);
+				new ClassPathXmlApplicationContext("annotation.xml");
 		
 		context.start();
 		

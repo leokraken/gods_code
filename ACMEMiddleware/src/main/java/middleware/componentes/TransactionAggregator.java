@@ -22,7 +22,7 @@ public class TransactionAggregator {
 	}
 	
 	public boolean releaseChecker(List<TransactionStatus> listTransactions){
-		System.out.println("Trans agregator: "+listTransactions.size());
+		//System.out.println("Trans agregator: "+listTransactions.size());
 		return listTransactions.size() == Constants.release;
 	}
 	
